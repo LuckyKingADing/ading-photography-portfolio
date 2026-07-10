@@ -1,0 +1,51 @@
+---
+import '@fontsource-variable/antonio';
+import '@fontsource-variable/manrope';
+import '@fontsource/ibm-plex-mono/400.css';
+import '../styles/global.css';
+import SiteFooter from './SiteFooter.astro';
+import SiteHeader from './SiteHeader.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  current?: 'home' | 'about' | 'series';
+  surface?: 'paper' | 'gallery';
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  current,
+  surface = 'gallery',
+} = Astro.props;
+
+const pageTitle = title === site.title ? title : `${title} — ${site.name}`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={surface === 'paper' ? '#E5E8EA' : '#F6F7F7'} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <title>{pageTitle}</title>
+  </head>
+  <body class:list={[`surface-${surface}`]} id="top">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <SiteHeader current={current} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+

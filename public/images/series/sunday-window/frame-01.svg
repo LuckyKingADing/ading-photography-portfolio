@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600" role="img" aria-labelledby="t d">
+  <title id="t">Sunday Window demo frame 01</title><desc id="d">Abstract warm-grey portrait placeholder.</desc>
+  <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#d3d1cd"/><stop offset="1" stop-color="#807b76"/></linearGradient></defs>
+  <rect width="1200" height="1600" fill="url(#g)"/><rect x="0" y="0" width="400" height="1600" fill="#f3f1ed" opacity=".72"/><ellipse cx="740" cy="650" rx="300" ry="430" fill="#393a39" opacity=".48"/>
+  <path d="M90 110h210M90 110v210M1110 1490H900M1110 1490v-210" stroke="#14181c" stroke-width="3"/>
+  <text x="90" y="1480" fill="#14181c" font-family="monospace" font-size="28" letter-spacing="8">DEMO / 01</text>
+</svg>
+

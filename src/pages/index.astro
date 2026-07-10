@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import SeriesRow from '../components/SeriesRow.astro';
+import { series } from '../data/series';
+import { sitePath } from '../utils/paths';
+
+const featured = series[0];
+---
+
+<BaseLayout current="home" surface="paper">
+  <section class="home-hero" aria-labelledby="hero-title">
+    <div class="hero-meta hero-meta-top">
+      <span>Selected work</span>
+      <span>{featured.year} — {featured.location}</span>
+    </div>
+    <h1 id="hero-title" class="hero-title">
+      <span>Portraits</span>
+      <span>in pause</span>
+    </h1>
+    <a class="hero-primary-frame" href={sitePath(`work/${featured.slug}/`)} aria-label={`View featured series ${featured.title}`}>
+      <img
+        src={sitePath(featured.cover.src)}
+        alt={featured.cover.alt}
+        width={featured.cover.width}
+        height={featured.cover.height}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </a>
+    <div class="hero-secondary-frame" aria-hidden="true">
+      <img
+        src={sitePath(featured.secondaryCover.src)}
+        alt=""
+        width={featured.secondaryCover.width}
+        height={featured.secondaryCover.height}
+        loading="eager"
+      />
+    </div>
+    <div class="hero-meta hero-meta-bottom">
+      <span>Current series / 01</span>
+      <a href={sitePath(`work/${featured.slug}/`)}>View {featured.title} <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="selected-series" id="selected-series" aria-labelledby="selected-series-title">
+    <div class="section-heading">
+      <p id="selected-series-title">Selected series</p>
+      <p>Portrait / place / memory</p>
+    </div>
+    <div class="series-list">
+      {series.map((item, index) => <SeriesRow item={item} index={index} />)}
+    </div>
+  </section>
+
+  <section class="home-statement" aria-label="Photography statement">
+    <p class="eyebrow">Approach</p>
+    <p>Photographs shaped by available light, unguarded gestures, and the atmosphere around a person.</p>
+    <a class="text-link" href={sitePath('about/')}>About ADING <span aria-hidden="true">↗</span></a>
+  </section>
+</BaseLayout>
+

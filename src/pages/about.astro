@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="About"
+  description="About ADING and the approach behind the photography."
+  current="about"
+>
+  <section class="about-intro">
+    <p class="eyebrow">About / ADING</p>
+    <h1>Looking for the moment before it becomes a pose.</h1>
+  </section>
+
+  <section class="about-grid">
+    <div class="about-index" aria-hidden="true">A</div>
+    <div class="about-copy">
+      <p class="lead">ADING is building a personal practice around portraiture, place, and quiet observation.</p>
+      <p>The work begins with available light and attention: how someone occupies a room, how a street changes after rain, or how a small gesture can hold a complete memory.</p>
+      <p>This portfolio will evolve one photographic series at a time. Each edit is kept concise so that every frame contributes to the story.</p>
+    </div>
+    <aside class="contact-block" aria-labelledby="contact-title">
+      <p class="eyebrow" id="contact-title">Contact</p>
+      {site.email || site.instagramUrl ? (
+        <ul>
+          {site.email && <li><a href={`mailto:${site.email}`}>{site.email}</a></li>}
+          {site.instagramUrl && <li><a href={site.instagramUrl} rel="me">Instagram</a></li>}
+        </ul>
+      ) : (
+        <p>Contact details will be added before the first photographic series is published.</p>
+      )}
+    </aside>
+  </section>
+</BaseLayout>
+

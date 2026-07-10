@@ -1,0 +1,35 @@
+---
+import type { PhotoSeries } from '../data/series';
+import { sitePath } from '../utils/paths';
+
+interface Props {
+  item: PhotoSeries;
+  index: number;
+}
+
+const { item, index } = Astro.props;
+const href = sitePath(`work/${item.slug}/`);
+---
+
+<article class:list={['series-row', { 'series-row-reverse': index % 2 === 1 }] }>
+  <div class="series-copy">
+    <div class="series-number">{String(index + 1).padStart(2, '0')}</div>
+    <p class="eyebrow">{item.category} · {item.location} · {item.year}</p>
+    <h2><a href={href}>{item.title}</a></h2>
+    <p>{item.summary}</p>
+    {item.isPlaceholder && <p class="placeholder-note">Demo structure — replace with your photographs</p>}
+    <a class="text-link" href={href}>View series <span aria-hidden="true">↗</span></a>
+  </div>
+  <a class="series-frame" href={href} aria-label={`View ${item.title} series`}>
+    <img
+      src={sitePath(item.cover.src)}
+      alt={item.cover.alt}
+      width={item.cover.width}
+      height={item.cover.height}
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="frame-corner" aria-hidden="true"></span>
+  </a>
+</article>
+
