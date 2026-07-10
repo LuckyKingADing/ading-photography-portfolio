@@ -6,8 +6,9 @@
   --steel-text: #4a5055;
   --focus: #465e70;
   --font-display: 'Antonio Variable', 'Arial Narrow', sans-serif;
-  --font-body: 'Manrope Variable', Arial, sans-serif;
-  --font-meta: 'IBM Plex Mono', monospace;
+  --font-cjk: 'Noto Sans SC Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-body: 'Noto Sans SC Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+  --font-meta: 'IBM Plex Mono', 'Noto Sans SC Variable', 'PingFang SC', 'Microsoft YaHei', monospace;
   --page-gutter: clamp(1.25rem, 4vw, 4.5rem);
   --content-width: 100rem;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -33,7 +34,7 @@ body {
   background: var(--gallery-white);
   color: var(--graphite);
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: 1.75;
 }
 
 body.surface-paper {
@@ -98,10 +99,10 @@ button {
   min-height: 6rem;
   margin-inline: auto;
   padding-inline: var(--page-gutter);
-  font-family: var(--font-meta);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--font-cjk);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
 }
 
 .brand-link,
@@ -114,7 +115,10 @@ button {
 
 .brand-link {
   gap: 0.6rem;
+  font-family: var(--font-display);
   font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .site-header nav {
@@ -155,9 +159,9 @@ button {
 .series-location,
 .demo-notice span {
   font-family: var(--font-meta);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  line-height: 1.5;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
   text-transform: uppercase;
 }
 
@@ -175,13 +179,11 @@ button {
   z-index: 3;
   width: 72%;
   margin: clamp(2rem, 6vh, 5rem) 0 0;
-  font-family: var(--font-display);
-  font-size: clamp(6.2rem, 15vw, 14.5rem);
-  font-stretch: condensed;
-  font-weight: 700;
-  letter-spacing: -0.055em;
-  line-height: 0.72;
-  text-transform: uppercase;
+  font-family: var(--font-cjk);
+  font-size: clamp(6rem, 12.5vw, 11rem);
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 0.96;
 }
 
 .hero-title span {
@@ -189,7 +191,7 @@ button {
 }
 
 .hero-title span:last-child {
-  margin-left: 12%;
+  margin-left: 16%;
 }
 
 .hero-primary-frame {
@@ -317,12 +319,11 @@ button {
 
 .series-copy h2 {
   margin: 0.35rem 0 1.25rem;
-  font-family: var(--font-display);
-  font-size: clamp(3.75rem, 7vw, 7.75rem);
-  font-weight: 650;
-  letter-spacing: -0.045em;
-  line-height: 0.82;
-  text-transform: uppercase;
+  font-family: var(--font-cjk);
+  font-size: clamp(4.5rem, 8vw, 8.25rem);
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .series-copy h2 a {
@@ -330,7 +331,7 @@ button {
 }
 
 .series-copy > p:not(.eyebrow, .placeholder-note) {
-  max-width: 32rem;
+  max-width: 36em;
   margin: 0 0 1rem;
   color: var(--steel-text);
   font-size: clamp(1rem, 1.4vw, 1.12rem);
@@ -348,7 +349,7 @@ button {
   align-items: center;
   gap: 0.65rem;
   font-family: var(--font-meta);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-underline-offset: 0.4rem;
   text-transform: uppercase;
@@ -419,12 +420,11 @@ button {
 .home-statement > p:nth-child(2) {
   grid-column: 2;
   margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 7vw, 7.5rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 0.95;
-  text-transform: uppercase;
+  font-family: var(--font-cjk);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 650;
+  letter-spacing: 0.025em;
+  line-height: 1.18;
 }
 
 .home-statement .text-link {
@@ -458,12 +458,11 @@ button {
 .about-intro h1,
 .not-found h1 {
   margin: 0.75rem 0 1.5rem;
-  font-family: var(--font-display);
-  font-size: clamp(5rem, 11vw, 12rem);
-  font-weight: 650;
-  letter-spacing: -0.05em;
-  line-height: 0.78;
-  text-transform: uppercase;
+  font-family: var(--font-cjk);
+  font-size: clamp(4.5rem, 9vw, 8.25rem);
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .series-location {
@@ -473,7 +472,7 @@ button {
 
 .lead {
   font-size: clamp(1.25rem, 2vw, 1.75rem);
-  line-height: 1.45;
+  line-height: 1.65;
 }
 
 .series-hero-copy > p:not(.eyebrow, .series-location, .lead) {
@@ -511,7 +510,8 @@ button {
 .demo-notice p {
   margin: 0.5rem 0 0;
   color: var(--steel-text);
-  font-size: 0.88rem;
+  font-size: 1rem;
+  line-height: 1.75;
 }
 
 .gallery-section {
@@ -607,7 +607,7 @@ button {
   gap: 1rem;
   padding-inline: var(--page-gutter);
   font-family: var(--font-meta);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -656,8 +656,9 @@ button {
 }
 
 .about-intro h1 {
-  max-width: 12ch;
-  font-size: clamp(5rem, 12vw, 13rem);
+  max-width: 11em;
+  font-size: clamp(4rem, 8vw, 8rem);
+  line-height: 1.08;
 }
 
 .about-grid {
@@ -677,7 +678,7 @@ button {
 }
 
 .about-copy p {
-  max-width: 43rem;
+  max-width: 36em;
   color: var(--steel-text);
 }
 
@@ -705,7 +706,7 @@ button {
 
 .contact-block > p:last-child {
   color: var(--steel-text);
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .not-found {
@@ -750,7 +751,7 @@ button {
   padding-top: 1rem;
   border-top: 1px solid #555b60;
   font-family: var(--font-meta);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -767,7 +768,7 @@ button {
 
   .hero-title {
     width: 86%;
-    font-size: clamp(6rem, 17vw, 10rem);
+    font-size: clamp(5.5rem, 13vw, 8.5rem);
   }
 
   .hero-primary-frame {
@@ -829,8 +830,8 @@ button {
     grid-column: 1 / -1;
     width: 100%;
     margin: 2rem 0 1.5rem;
-    font-size: clamp(5rem, 26vw, 8rem);
-    line-height: 0.76;
+    font-size: clamp(3.625rem, 19vw, 5.125rem);
+    line-height: 0.98;
   }
 
   .hero-title span:last-child {
@@ -900,7 +901,7 @@ button {
   }
 
   .series-copy h2 {
-    font-size: clamp(4rem, 19vw, 6rem);
+    font-size: clamp(3rem, 15vw, 4.25rem);
   }
 
   .home-statement {
@@ -919,7 +920,7 @@ button {
   }
 
   .series-hero h1 {
-    font-size: clamp(5rem, 25vw, 8rem);
+    font-size: clamp(3rem, 14vw, 4.25rem);
   }
 
   .series-hero-image {
@@ -948,7 +949,7 @@ button {
 
   .about-intro h1,
   .not-found h1 {
-    font-size: clamp(4.75rem, 22vw, 7rem);
+    font-size: clamp(2.75rem, 12vw, 4rem);
   }
 
   .about-grid {

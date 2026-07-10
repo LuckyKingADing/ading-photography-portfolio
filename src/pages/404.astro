@@ -3,12 +3,11 @@ import BaseLayout from '../components/BaseLayout.astro';
 import { sitePath } from '../utils/paths';
 ---
 
-<BaseLayout title="Page not found">
+<BaseLayout title="页面未找到">
   <section class="not-found">
-    <p class="eyebrow">404 / Frame missing</p>
-    <h1>This frame is not in the edit.</h1>
-    <p>The page may have moved, or the address may be incomplete.</p>
-    <a class="text-link" href={sitePath()}>Return to selected work <span aria-hidden="true">↗</span></a>
+    <p class="eyebrow">404 / 画面缺失</p>
+    <h1>这一帧不在最终选辑里。</h1>
+    <p>页面可能已经移动，或当前地址并不完整。</p>
+    <a class="text-link" href={sitePath()}>返回精选作品 <span aria-hidden="true">↗</span></a>
   </section>
 </BaseLayout>
-

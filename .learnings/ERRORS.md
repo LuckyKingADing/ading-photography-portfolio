@@ -4,6 +4,46 @@ Command failures and integration errors.
 
 ---
 
+## [ERR-20260710-003] in_app_browser_multi_tab_timeout
+
+**Logged**: 2026-07-10T23:37:39+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+A single browser automation call timed out while creating and closing several responsive-test tabs sequentially.
+
+### Error
+
+```text
+Timed out waiting for the Browser webview to attach for this browser-use page.
+```
+
+### Context
+
+- The call attempted 768px, 1024px, and landscape viewport checks in one long browser operation.
+- The browser session remained healthy but closed the temporary tabs.
+- Repeating each viewport as its own create-check-close operation succeeded.
+
+### Suggested Fix
+
+Use one browser tool call per fresh responsive-test tab instead of batching several tab lifecycles into one call.
+
+### Metadata
+
+- Reproducible: unknown
+- Related Files: src/styles/global.css
+- See Also: ERR-20260710-002
+
+### Resolution
+
+- **Resolved**: 2026-07-10T23:38:30+02:00
+- **Notes**: All target breakpoints and mobile landscape passed when checked individually.
+
+---
+
 ## [ERR-20260710-002] in_app_browser_validation
 
 **Logged**: 2026-07-10T22:56:00+02:00

@@ -29,8 +29,8 @@ const { item } = Astro.props;
         <p>{item.description}</p>
         {item.isPlaceholder && (
           <div class="demo-notice">
-            <span>Demo series</span>
-            <p>These abstract frames reserve the final layout. Follow the repository guide to replace them with your photographs.</p>
+            <span>示例系列</span>
+            <p>这些抽象画面用于保留最终版式。请按照仓库说明替换为你的摄影作品。</p>
           </div>
         )}
       </div>
@@ -49,8 +49,8 @@ const { item } = Astro.props;
 
     <section class="gallery-section" aria-labelledby="gallery-title">
       <div class="section-heading">
-        <p id="gallery-title">Complete edit</p>
-        <p>{String(item.images.length).padStart(2, '0')} frames</p>
+        <p id="gallery-title">完整选辑</p>
+        <p>{String(item.images.length).padStart(2, '0')} 张</p>
       </div>
       <ol class="photo-gallery">
         {item.images.map((image, index) => (
@@ -63,7 +63,7 @@ const { item } = Astro.props;
               data-alt={image.alt}
               data-width={image.width}
               data-height={image.height}
-              aria-label={`Open image ${index + 1} of ${item.images.length}: ${image.alt}`}
+              aria-label={`打开第 ${index + 1} 张图片，共 ${item.images.length} 张：${image.alt}`}
             >
               <img
                 src={sitePath(image.src)}
@@ -81,19 +81,19 @@ const { item } = Astro.props;
     </section>
   </article>
 
-  <dialog class="lightbox" data-lightbox aria-label={`${item.title} image viewer`}>
+  <dialog class="lightbox" data-lightbox aria-label={`“${item.title}”图片查看器`}>
     <div class="lightbox-inner">
       <div class="lightbox-bar">
         <span>{item.title}</span>
         <span data-lightbox-count aria-live="polite"></span>
-        <button type="button" class="lightbox-close" data-lightbox-close aria-label="Close image viewer">Close</button>
+        <button type="button" class="lightbox-close" data-lightbox-close aria-label="关闭图片查看器">关闭</button>
       </div>
       <div class="lightbox-stage">
         <img data-lightbox-image src="" alt="" width="1" height="1" />
       </div>
       <div class="lightbox-controls">
-        <button type="button" data-lightbox-previous>Previous</button>
-        <button type="button" data-lightbox-next>Next</button>
+        <button type="button" data-lightbox-previous>上一张</button>
+        <button type="button" data-lightbox-next>下一张</button>
       </div>
     </div>
   </dialog>

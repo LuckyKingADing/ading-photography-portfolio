@@ -9,14 +9,13 @@ const { current } = Astro.props;
 ---
 
 <header class="site-header">
-  <a class="brand-link" href={sitePath()} aria-label="ADING Photography home">
+  <a class="brand-link" href={sitePath()} aria-label="返回 ADING 摄影作品集首页">
     <span>ADING</span>
     <span aria-hidden="true">/</span>
     <span>Photography</span>
   </a>
-  <nav aria-label="Primary navigation">
-    <a href={`${sitePath()}#selected-series`} aria-current={current === 'series' ? 'location' : undefined}>Work</a>
-    <a href={sitePath('about/')} aria-current={current === 'about' ? 'page' : undefined}>About</a>
+  <nav aria-label="主要导航">
+    <a href={`${sitePath()}#selected-series`} aria-current={current === 'series' ? 'location' : undefined}>作品</a>
+    <a href={sitePath('about/')} aria-current={current === 'about' ? 'page' : undefined}>关于</a>
   </nav>
 </header>
-

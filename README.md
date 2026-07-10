@@ -1,6 +1,6 @@
 # ADING — Photography
 
-An English-first, static photography portfolio built with Astro and deployed through GitHub Pages.
+A Chinese-first, static photography portfolio built with Astro and deployed through GitHub Pages.
 
 ## Local development
 
