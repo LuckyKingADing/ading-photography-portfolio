@@ -10,6 +10,8 @@ const featuredPhotos = series
       .map((image) => ({ collection, image })),
   )
   .sort((a, b) => (a.image.featuredOrder ?? 0) - (b.image.featuredOrder ?? 0));
+
+const [featuredLead, ...featuredSecondary] = featuredPhotos;
 ---
 
 <BaseLayout>
@@ -25,30 +27,55 @@ const featuredPhotos = series
       <p>{String(featuredPhotos.length).padStart(2, '0')} selected</p>
     </div>
 
-    <div class="featured-grid">
-      {featuredPhotos.map(({ collection, image }, index) => (
+    <div class="featured-collage">
+      {featuredLead && (
         <a
-          class="featured-item"
-          href={sitePath(`work/${collection.slug}/`)}
-          aria-label={`查看摄影系列“${collection.title}”：${image.alt}`}
+          class="featured-item featured-lead"
+          href={sitePath(`work/${featuredLead.collection.slug}/`)}
+          aria-label={`查看摄影系列“${featuredLead.collection.title}”：${featuredLead.image.alt}`}
         >
           <figure>
             <img
-              src={sitePath(image.src)}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              fetchpriority={index === 0 ? 'high' : undefined}
+              src={sitePath(featuredLead.image.src)}
+              alt={featuredLead.image.alt}
+              width={featuredLead.image.width}
+              height={featuredLead.image.height}
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
             />
             <figcaption>
-              <span>{collection.title}</span>
-              <span>{String(index + 1).padStart(2, '0')}</span>
+              <span>{featuredLead.collection.title}</span>
+              <span>01</span>
             </figcaption>
           </figure>
         </a>
-      ))}
+      )}
+
+      <div class="featured-secondary-grid">
+        {featuredSecondary.map(({ collection, image }, index) => (
+          <a
+            class="featured-item"
+            href={sitePath(`work/${collection.slug}/`)}
+            aria-label={`查看摄影系列“${collection.title}”：${image.alt}`}
+          >
+            <figure>
+              <img
+                src={sitePath(image.src)}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span>{collection.location}</span>
+                <span>{String(index + 2).padStart(2, '0')}</span>
+              </figcaption>
+            </figure>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 

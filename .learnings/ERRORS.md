@@ -4,6 +4,86 @@ Command failures and integration errors.
 
 ---
 
+## [ERR-20260711-006] local_browser_validation_setup
+
+**Logged**: 2026-07-11T15:38:03+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+The first local browser validation attempt used an older browser runtime that macOS blocked, then opened Astro at `/` even though the project has a configured base path.
+
+### Error
+
+```text
+classic-level.node: library load disallowed by system policy
+404: Not found — base path is /ading-photography-portfolio/
+```
+
+### Context
+
+- The site build and application code were healthy.
+- The newer in-app browser runtime connected successfully.
+- Astro's development server correctly required the configured GitHub Pages base path.
+
+### Suggested Fix
+
+Use the current in-app browser runtime and open local pages beneath `/ading-photography-portfolio/` when this Astro base setting is active.
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: astro.config.mjs, src/styles/global.css
+- See Also: ERR-20260711-005
+
+### Resolution
+
+- **Resolved**: 2026-07-11T15:38:03+02:00
+- **Notes**: Completed desktop, tablet, and mobile validation with the current runtime and the correct base path.
+
+---
+
+## [ERR-20260711-005] in_app_browser_screenshot_capture
+
+**Logged**: 2026-07-11T11:02:44+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+The first attempt to capture the live homepage while measuring layout density failed before returning the collected metrics.
+
+### Error
+
+```text
+Unable to capture screenshot
+```
+
+### Context
+
+- The operation combined a read-only layout measurement with a viewport screenshot.
+- The public website remained healthy and contained no console errors.
+
+### Suggested Fix
+
+When the visual capture layer fails, open a fresh tab and run the read-only measurement without a screenshot. Use an existing verified screenshot when the current task only needs dimensions.
+
+### Metadata
+
+- Reproducible: unknown
+- Related Files: src/styles/global.css
+- See Also: ERR-20260710-002, ERR-20260711-004
+
+### Resolution
+
+- **Resolved**: 2026-07-11T11:02:44+02:00
+- **Notes**: A fresh tab returned the required image sizes, gaps, section height, Archive position, and overflow status successfully.
+
+---
+
 ## [ERR-20260711-004] in_app_browser_viewport_reset
 
 **Logged**: 2026-07-11T10:08:00+02:00

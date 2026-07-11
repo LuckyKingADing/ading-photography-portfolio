@@ -30,7 +30,10 @@ const nextSeries = series.length > 1 ? series[(currentIndex + 1) % series.length
 
     <ol class="series-gallery" aria-label={`“${item.title}”完整图集`}>
       {item.images.map((image, index) => (
-        <li class="series-photo" id={`photo-${index + 1}`}>
+        <li
+          class:list={['series-photo', { 'series-photo-landscape': image.width > image.height }]}
+          id={`photo-${index + 1}`}
+        >
           <figure>
             <img
               src={sitePath(image.src)}
@@ -42,8 +45,9 @@ const nextSeries = series.length > 1 ? series[(currentIndex + 1) % series.length
               decoding="async"
             />
             <figcaption>
-              <span>{String(index + 1).padStart(2, '0')} / {String(item.images.length).padStart(2, '0')}</span>
-              <span>{image.alt}</span>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <span>{item.location}</span>
+              <span>{item.date}</span>
             </figcaption>
           </figure>
         </li>
