@@ -4,6 +4,45 @@ Command failures and integration errors.
 
 ---
 
+## [ERR-20260711-007] multi_directory_image_glob
+
+**Logged**: 2026-07-11T22:04:40+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+The first asset-validation command combined an array of directories with one trailing glob, so zsh expanded only the final directory and passed the other directory names to ImageMagick as if they were images.
+
+### Error
+
+```text
+no decode delegate for this image format
+Only 9 of the expected 27 WebP files were validated.
+```
+
+### Context
+
+- The generated WebP files were valid; the validation command assembled its input list incorrectly.
+- The failure did not modify source or published images.
+
+### Suggested Fix
+
+Build an explicit array from each directory glob before invoking ImageMagick, for example `files=(dir-a/*.webp dir-b/*.webp dir-c/*.webp)`.
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: public/images/series/budapest/, public/images/series/stuttgart/, public/images/series/shenzhen-observatory/
+
+### Resolution
+
+- **Resolved**: 2026-07-11T22:04:40+02:00
+- **Notes**: Re-ran validation with an explicit files array; all 27 images decoded correctly, stayed within 2400px, and contained no EXIF, GPS, or embedded profiles.
+
+---
+
 ## [ERR-20260711-006] local_browser_validation_setup
 
 **Logged**: 2026-07-11T15:38:03+02:00

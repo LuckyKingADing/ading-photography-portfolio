@@ -4,6 +4,7 @@ import { series } from '../data/series';
 import { sitePath } from '../utils/paths';
 
 const featuredPhotos = series
+  .filter((collection) => collection.category === '人像')
   .flatMap((collection) =>
     collection.images
       .filter((image) => image.featuredOrder !== undefined)
@@ -80,10 +81,13 @@ const [featuredLead, ...featuredSecondary] = featuredPhotos;
     <div class="archive-list">
       {series.map((collection) => (
         <a class="archive-row" href={sitePath(`work/${collection.slug}/`)}>
-          <span class="archive-location">{collection.location}</span>
+          <span class="archive-meta">
+            <span class="archive-location">{collection.location}</span>
+            <span class="archive-category">{collection.category}</span>
+          </span>
           <span class="archive-title">{collection.title}</span>
-          <span>{collection.date}</span>
-          <span>{String(collection.images.length).padStart(2, '0')} photos</span>
+          <span class="archive-date">{collection.date}</span>
+          <span class="archive-count">{String(collection.images.length).padStart(2, '0')} photos</span>
         </a>
       ))}
     </div>
