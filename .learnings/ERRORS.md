@@ -4,6 +4,87 @@ Command failures and integration errors.
 
 ---
 
+## [ERR-20260711-004] in_app_browser_viewport_reset
+
+**Logged**: 2026-07-11T10:08:00+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+Resetting the temporary responsive viewport invalidated the mobile test tab, and the following attempt to expose a replacement tab timed out.
+
+### Error
+
+```text
+Tab 11 is not part of browser session
+Timed out waiting for the Browser webview to attach
+```
+
+### Context
+
+- Desktop and 360px mobile visual checks had already completed successfully.
+- Full-page and mobile screenshots were saved before resetting the viewport.
+- The deployed page and all image requests remained healthy.
+
+### Suggested Fix
+
+After resetting a viewport override, re-list browser tabs before reusing or closing any saved tab handle. Treat a visibility attach timeout as a presentation-layer issue when independent live-page checks have already passed.
+
+### Metadata
+
+- Reproducible: unknown
+- Related Files: src/styles/global.css
+- See Also: ERR-20260710-002, ERR-20260710-003
+
+### Resolution
+
+- **Resolved**: 2026-07-11T10:08:00+02:00
+- **Notes**: Kept the completed browser evidence and live HTTP checks as the delivery proof; no application defect was present.
+
+---
+
+## [ERR-20260711-003] zsh_path_loop_variable
+
+**Logged**: 2026-07-11T10:03:36+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+Using `path` as a zsh loop variable overwrote the shell's tied `PATH` array and made subsequent commands unavailable.
+
+### Error
+
+```text
+zsh: command not found: curl
+zsh: command not found: git
+```
+
+### Context
+
+- A live-site smoke-test loop used `for path in ...`.
+- In zsh, lowercase `path` is a special array tied to the `PATH` environment variable.
+- The deployed site itself was unaffected.
+
+### Suggested Fix
+
+Use a neutral loop variable such as `rel` or `url_path` in zsh scripts. Absolute command paths are also useful while recovering from a clobbered `PATH`.
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+
+- **Resolved**: 2026-07-11T10:03:36+02:00
+- **Notes**: Re-ran the smoke test with `rel`; the homepage, series page, and all seven image URLs returned HTTP 200.
+
+---
+
 ## [ERR-20260711-002] macos_date_iso_flag
 
 **Logged**: 2026-07-11T10:00:59+02:00
