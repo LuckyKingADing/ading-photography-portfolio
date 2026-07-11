@@ -10,9 +10,8 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@fontsource-variable/antonio": "^5.2.8",
+    "@fontsource-variable/archivo": "^5.2.8",
     "@fontsource-variable/noto-sans-sc": "^5.2.10",
-    "@fontsource/ibm-plex-mono": "^5.2.7",
     "astro": "^7.0.7"
   },
   "devDependencies": {

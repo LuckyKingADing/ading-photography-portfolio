@@ -1,6 +1,6 @@
 # ADING — Photography
 
-A Chinese-first, static photography portfolio built with Astro and deployed through GitHub Pages.
+An English-led, bilingual personal photography archive built with Astro and deployed through GitHub Pages.
 
 ## Local development
 
@@ -26,21 +26,10 @@ The repository contains web-ready copies only. Add future work one series at a t
 2. Remove private EXIF metadata, especially GPS coordinates.
 3. Create `public/images/series/<series-slug>/` and copy the web exports into it.
 4. Edit `src/data/series.ts`. Update the title, date, location, summary, description, image path, alternative text, width, and height.
-5. Set `isPlaceholder` to `false` for a published series.
+5. Add `featuredOrder` to any photograph that should appear in the mixed homepage selection. Lower numbers appear first.
 6. Run `npm run check && npm run build`, then inspect the home and series pages on desktop and mobile.
 
 Image order in the `images` array is the gallery order. Keep the edit deliberate; the site never randomizes a series.
-
-## Add contact details
-
-Edit `src/data/site.ts`:
-
-```ts
-email: 'you@example.com',
-instagramUrl: 'https://instagram.com/your-handle',
-```
-
-Empty values render a clear “details coming soon” state instead of broken links.
 
 ## GitHub Pages
 
@@ -55,8 +44,8 @@ For a future custom domain, update `site` and remove `base` in `astro.config.mjs
 ## Project map
 
 - `src/data/series.ts` — all series text and image metadata
-- `src/data/site.ts` — site identity and contact links
-- `src/pages/` — home, About, 404, and generated series routes
-- `src/styles/global.css` — Modern Atelier visual system
+- `src/data/site.ts` — site identity and metadata
+- `src/pages/` — home, 404, and generated series routes
+- `src/styles/global.css` — minimal black-and-white visual system
 - `public/images/series/` — publishable web images only
 - `docs/superpowers/specs/` — approved design specification

@@ -12,156 +12,47 @@ interface Props {
 }
 
 const { item } = Astro.props;
-const [titleLead, titleTail] = item.title.split(' · ');
+const currentIndex = series.findIndex((collection) => collection.slug === item.slug);
+const nextSeries = series.length > 1 ? series[(currentIndex + 1) % series.length] : undefined;
 ---
 
-<BaseLayout
-  title={item.title}
-  description={item.summary}
-  current="series"
->
+<BaseLayout title={item.title} description={item.summary}>
   <article class="series-page">
-    <header class="series-hero">
-      <div class="series-hero-copy">
-        <p class="eyebrow">{item.category} / {item.year}</p>
-        <h1 aria-label={item.title}>
-          <span aria-hidden="true">{titleLead}</span>
-          {titleTail && <span aria-hidden="true">· {titleTail}</span>}
-        </h1>
-        <p class="series-location">{item.location}</p>
-        <p class="lead">{item.summary}</p>
+    <header class="series-intro">
+      <a class="back-link" href={`${sitePath()}#archive`}>← Archive</a>
+      <p class="eyebrow">{item.location} / {item.category} / {item.date}</p>
+      <h1>{item.title}</h1>
+      <div class="series-copy">
+        <p class="series-lead">{item.summary}</p>
         <p>{item.description}</p>
-        {item.isPlaceholder && (
-          <div class="demo-notice">
-            <span>示例系列</span>
-            <p>这些抽象画面用于保留最终版式。请按照仓库说明替换为你的摄影作品。</p>
-          </div>
-        )}
       </div>
-      <div class="series-hero-image">
-        <img
-          src={sitePath(item.cover.src)}
-          alt={item.cover.alt}
-          width={item.cover.width}
-          height={item.cover.height}
-          loading="eager"
-          fetchpriority="high"
-        />
-      </div>
-      <div class="series-hero-index" aria-hidden="true">{item.year.slice(-2)}</div>
     </header>
 
-    <section class="gallery-section" aria-labelledby="gallery-title">
-      <div class="section-heading">
-        <p id="gallery-title">完整选辑</p>
-        <p>{String(item.images.length).padStart(2, '0')} 张</p>
-      </div>
-      <ol class="photo-gallery">
-        {item.images.map((image, index) => (
-          <li class:list={['gallery-item', `gallery-item-${(index % 3) + 1}`]}>
-            <button
-              type="button"
-              class="gallery-trigger"
-              data-gallery-trigger
-              data-src={sitePath(image.src)}
-              data-alt={image.alt}
-              data-width={image.width}
-              data-height={image.height}
-              aria-label={`打开第 ${index + 1} 张图片，共 ${item.images.length} 张：${image.alt}`}
-            >
-              <img
-                src={sitePath(image.src)}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                loading={index === 0 ? 'eager' : 'lazy'}
-                decoding="async"
-              />
-              <span class="image-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-            </button>
-          </li>
-        ))}
-      </ol>
-    </section>
+    <ol class="series-gallery" aria-label={`“${item.title}”完整图集`}>
+      {item.images.map((image, index) => (
+        <li class="series-photo" id={`photo-${index + 1}`}>
+          <figure>
+            <img
+              src={sitePath(image.src)}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              fetchpriority={index === 0 ? 'high' : undefined}
+              decoding="async"
+            />
+            <figcaption>
+              <span>{String(index + 1).padStart(2, '0')} / {String(item.images.length).padStart(2, '0')}</span>
+              <span>{image.alt}</span>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ol>
+
+    <nav class="series-end" aria-label="作品集导航">
+      <a href={`${sitePath()}#archive`}>Back to archive</a>
+      {nextSeries && <a href={sitePath(`work/${nextSeries.slug}/`)}>Next: {nextSeries.title} →</a>}
+    </nav>
   </article>
-
-  <dialog class="lightbox" data-lightbox aria-label={`“${item.title}”图片查看器`}>
-    <div class="lightbox-inner">
-      <div class="lightbox-bar">
-        <span>{item.title}</span>
-        <span data-lightbox-count aria-live="polite"></span>
-        <button type="button" class="lightbox-close" data-lightbox-close aria-label="关闭图片查看器">关闭</button>
-      </div>
-      <div class="lightbox-stage">
-        <img data-lightbox-image src="" alt="" width="1" height="1" />
-      </div>
-      <div class="lightbox-controls">
-        <button type="button" data-lightbox-previous>上一张</button>
-        <button type="button" data-lightbox-next>下一张</button>
-      </div>
-    </div>
-  </dialog>
-
-  <script>
-    const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
-    const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-gallery-trigger]'));
-    const image = dialog?.querySelector<HTMLImageElement>('[data-lightbox-image]');
-    const count = dialog?.querySelector<HTMLElement>('[data-lightbox-count]');
-    const closeButton = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-close]');
-    const previousButton = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-previous]');
-    const nextButton = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-next]');
-
-    let activeIndex = 0;
-    let activeTrigger: HTMLButtonElement | undefined;
-
-    function renderImage(index: number) {
-      if (!image || !count || triggers.length === 0) return;
-      activeIndex = (index + triggers.length) % triggers.length;
-      const trigger = triggers[activeIndex];
-      image.src = trigger.dataset.src ?? '';
-      image.alt = trigger.dataset.alt ?? '';
-      image.width = Number(trigger.dataset.width ?? 1);
-      image.height = Number(trigger.dataset.height ?? 1);
-      count.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(triggers.length).padStart(2, '0')}`;
-    }
-
-    function openLightbox(index: number, trigger: HTMLButtonElement) {
-      if (!dialog) return;
-      activeTrigger = trigger;
-      renderImage(index);
-      dialog.showModal();
-      document.body.classList.add('lightbox-open');
-      closeButton?.focus();
-    }
-
-    function closeLightbox() {
-      dialog?.close();
-    }
-
-    triggers.forEach((trigger, index) => {
-      trigger.addEventListener('click', () => openLightbox(index, trigger));
-    });
-
-    previousButton?.addEventListener('click', () => renderImage(activeIndex - 1));
-    nextButton?.addEventListener('click', () => renderImage(activeIndex + 1));
-    closeButton?.addEventListener('click', closeLightbox);
-
-    dialog?.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        closeLightbox();
-      }
-      if (event.key === 'ArrowLeft') renderImage(activeIndex - 1);
-      if (event.key === 'ArrowRight') renderImage(activeIndex + 1);
-    });
-
-    dialog?.addEventListener('click', (event) => {
-      if (event.target === dialog) closeLightbox();
-    });
-
-    dialog?.addEventListener('close', () => {
-      document.body.classList.remove('lightbox-open');
-      activeTrigger?.focus();
-    });
-  </script>
 </BaseLayout>

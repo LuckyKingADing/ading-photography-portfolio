@@ -1,15 +1,10 @@
 ---
 import { site } from '../data/site';
-import { sitePath } from '../utils/paths';
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <a class="footer-brand" href={sitePath()}>{site.name}</a>
-  <p>人像、地点，以及那些安静发生的瞬间。</p>
-  <div class="footer-meta">
-    <span>© {year} {site.name}</span>
-    <a href="#top">返回顶部</a>
-  </div>
+  <p>© {year} {site.name} — Personal Photography Archive</p>
+  <a href="#top">Back to top</a>
 </footer>

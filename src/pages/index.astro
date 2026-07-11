@@ -1,60 +1,83 @@
 ---
 import BaseLayout from '../components/BaseLayout.astro';
-import SeriesRow from '../components/SeriesRow.astro';
 import { series } from '../data/series';
 import { sitePath } from '../utils/paths';
 
-const featured = series[0];
+const featuredPhotos = series
+  .flatMap((collection) =>
+    collection.images
+      .filter((image) => image.featuredOrder !== undefined)
+      .map((image) => ({ collection, image })),
+  )
+  .sort((a, b) => (a.image.featuredOrder ?? 0) - (b.image.featuredOrder ?? 0));
 ---
 
-<BaseLayout current="home" surface="paper">
-  <section class="home-hero" aria-labelledby="hero-title">
-    <div class="hero-meta hero-meta-top">
-      <span>精选作品</span>
-      <span>{featured.year} — {featured.location}</span>
-    </div>
-    <h1 id="hero-title" class="hero-title">
-      <span>凝视</span>
-      <span>之间</span>
-    </h1>
-    <a class="hero-primary-frame" href={sitePath(`work/${featured.slug}/`)} aria-label={`查看精选系列“${featured.title}”`}>
-      <img
-        src={sitePath(featured.cover.src)}
-        alt={featured.cover.alt}
-        width={featured.cover.width}
-        height={featured.cover.height}
-        loading="eager"
-        fetchpriority="high"
-      />
-    </a>
-    <div class="hero-secondary-frame" aria-hidden="true">
-      <img
-        src={sitePath(featured.secondaryCover.src)}
-        alt=""
-        width={featured.secondaryCover.width}
-        height={featured.secondaryCover.height}
-        loading="eager"
-      />
-    </div>
-    <div class="hero-meta hero-meta-bottom">
-      <span>当前系列 / 01</span>
-      <a href={sitePath(`work/${featured.slug}/`)}>查看“{featured.title}” <span aria-hidden="true">↗</span></a>
-    </div>
+<BaseLayout>
+  <section class="home-intro" aria-labelledby="home-title">
+    <p class="eyebrow">Personal photography</p>
+    <h1 id="home-title">Places, light, and people worth remembering.</h1>
+    <p class="intro-cn">关于旅行、人物和生活片段的个人摄影档案。</p>
   </section>
 
-  <section class="selected-series" id="selected-series" aria-labelledby="selected-series-title">
+  <section class="featured-section" id="work" aria-labelledby="featured-title">
     <div class="section-heading">
-      <p id="selected-series-title">精选系列</p>
-      <p>人像 / 地点 / 记忆</p>
+      <h2 id="featured-title">Selected Photographs</h2>
+      <p>{String(featuredPhotos.length).padStart(2, '0')} selected</p>
     </div>
-    <div class="series-list">
-      {series.map((item, index) => <SeriesRow item={item} index={index} />)}
+
+    <div class="featured-grid">
+      {featuredPhotos.map(({ collection, image }, index) => (
+        <a
+          class="featured-item"
+          href={sitePath(`work/${collection.slug}/`)}
+          aria-label={`查看摄影系列“${collection.title}”：${image.alt}`}
+        >
+          <figure>
+            <img
+              src={sitePath(image.src)}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              fetchpriority={index === 0 ? 'high' : undefined}
+              decoding="async"
+            />
+            <figcaption>
+              <span>{collection.title}</span>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+            </figcaption>
+          </figure>
+        </a>
+      ))}
     </div>
   </section>
 
-  <section class="home-statement" aria-label="摄影创作方式">
-    <p class="eyebrow">关于创作</p>
-    <p>让自然光、无防备的动作，以及人物周围的气息共同形成照片。</p>
-    <a class="text-link" href={sitePath('about/')}>了解 ADING <span aria-hidden="true">↗</span></a>
+  <section class="archive-section" id="archive" aria-labelledby="archive-title">
+    <div class="section-heading">
+      <h2 id="archive-title">Archive</h2>
+      <p>Places &amp; series</p>
+    </div>
+
+    <div class="archive-list">
+      {series.map((collection) => (
+        <a class="archive-row" href={sitePath(`work/${collection.slug}/`)}>
+          <span class="archive-location">{collection.location}</span>
+          <span class="archive-title">{collection.title}</span>
+          <span>{collection.date}</span>
+          <span>{String(collection.images.length).padStart(2, '0')} photos</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="about-section" id="about" aria-labelledby="about-title">
+    <div>
+      <p class="eyebrow">About</p>
+      <h2 id="about-title">A personal archive, still growing.</h2>
+    </div>
+    <div class="about-copy">
+      <p>ADING 持续记录旅行中的地点、自然光，以及人物不经意的状态。</p>
+      <p>这里会随着新的拍摄慢慢生长。每个系列保留独立的时间、地点与观看节奏。</p>
+    </div>
   </section>
 </BaseLayout>

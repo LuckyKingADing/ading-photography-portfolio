@@ -1,21 +1,13 @@
 ---
 import { sitePath } from '../utils/paths';
-
-interface Props {
-  current?: 'home' | 'about' | 'series';
-}
-
-const { current } = Astro.props;
 ---
 
 <header class="site-header">
   <a class="brand-link" href={sitePath()} aria-label="返回 ADING 摄影作品集首页">
-    <span>ADING</span>
-    <span aria-hidden="true">/</span>
-    <span>Photography</span>
+    ADING
   </a>
   <nav aria-label="主要导航">
-    <a href={`${sitePath()}#selected-series`} aria-current={current === 'series' ? 'location' : undefined}>作品</a>
-    <a href={sitePath('about/')} aria-current={current === 'about' ? 'page' : undefined}>关于</a>
+    <a href={`${sitePath()}#work`}>Work</a>
+    <a href={`${sitePath()}#about`}>About</a>
   </nav>
 </header>

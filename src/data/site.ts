@@ -1,7 +1,5 @@
 export const site = {
   name: 'ADING',
-  title: 'ADING — 摄影作品集',
-  description: 'ADING 的人像、地点与安静观察。',
-  email: '',
-  instagramUrl: '',
+  title: 'ADING — Personal Photography Archive',
+  description: '关于旅行、人物和生活片段的个人摄影档案。',
 };
