@@ -4,6 +4,47 @@ Command failures and integration errors.
 
 ---
 
+## [ERR-20260711-008] in_app_browser_api_surface
+
+**Logged**: 2026-07-11T22:11:29+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+The first live-browser audit used Playwright-style methods directly on the in-app browser tab and an outdated tab-construction name.
+
+### Error
+
+```text
+browser.tabs.newTab is not a function
+portfolioPublicTab.waitForLoadState is not a function
+playwright.evaluate requires a string or function
+```
+
+### Context
+
+- The public website was already deployed and healthy.
+- The in-app browser separates tab navigation from DOM automation: navigation lives on the tab, while DOM reads and waits live under `tab.playwright`.
+
+### Suggested Fix
+
+Create tabs with `browser.tabs.new()`, reconnect with `browser.tabs.get(id)`, and call `tab.playwright.waitForLoadState(...)` plus `tab.playwright.evaluate(() => ...)`.
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: src/pages/index.astro, src/styles/global.css
+- See Also: ERR-20260710-002
+
+### Resolution
+
+- **Resolved**: 2026-07-11T22:11:29+02:00
+- **Notes**: Re-ran the live desktop and mobile audits through the supported API; Archive, featured filtering, gallery ratios, sticky navigation, and overflow checks all passed.
+
+---
+
 ## [ERR-20260711-007] multi_directory_image_glob
 
 **Logged**: 2026-07-11T22:04:40+02:00
