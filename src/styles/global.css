@@ -60,7 +60,7 @@ h2 {
 
 .skip-link {
   position: fixed;
-  z-index: 10;
+  z-index: 30;
   top: 0.75rem;
   left: 0.75rem;
   padding: 0.65rem 0.9rem;
@@ -88,10 +88,14 @@ h2 {
 }
 
 .site-header {
+  position: sticky;
+  z-index: 20;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: 5.5rem;
+  background: var(--background);
   font-family: var(--font-display);
   font-size: 0.875rem;
   font-weight: 650;
@@ -160,7 +164,7 @@ h2 {
 .featured-section,
 .archive-section,
 .about-section {
-  scroll-margin-top: 2rem;
+  scroll-margin-top: calc(5.5rem + 2rem);
 }
 
 .section-heading {
@@ -432,6 +436,12 @@ h2 {
   .site-header nav a {
     font-size: 0.75rem;
     letter-spacing: 0.04em;
+  }
+
+  .featured-section,
+  .archive-section,
+  .about-section {
+    scroll-margin-top: calc(4.75rem + 1rem);
   }
 
   .home-intro {
