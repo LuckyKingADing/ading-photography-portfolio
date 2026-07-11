@@ -28,7 +28,7 @@ const nextSeries = series.length > 1 ? series[(currentIndex + 1) % series.length
       </div>
     </header>
 
-    <ol class="series-gallery" aria-label={`“${item.title}”完整图集`}>
+    <ol class="series-gallery" data-masonry aria-label={`“${item.title}”完整图集`}>
       {item.images.map((image, index) => (
         <li
           class:list={['series-photo', { 'series-photo-landscape': image.width > image.height }]}

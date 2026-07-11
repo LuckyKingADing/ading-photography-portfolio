@@ -12,7 +12,6 @@ const featuredPhotos = series
   )
   .sort((a, b) => (a.image.featuredOrder ?? 0) - (b.image.featuredOrder ?? 0));
 
-const [featuredLead, ...featuredSecondary] = featuredPhotos;
 ---
 
 <BaseLayout>
@@ -28,47 +27,26 @@ const [featuredLead, ...featuredSecondary] = featuredPhotos;
       <p>Selected Works</p>
     </div>
 
-    <div class="featured-collage">
-      {featuredLead && (
+    <div class="featured-collage" data-masonry>
+      {featuredPhotos.map(({ collection, image }, index) => (
         <a
-          class="featured-item featured-lead"
-          href={sitePath(`work/${featuredLead.collection.slug}/`)}
-          aria-label={`查看摄影系列“${featuredLead.collection.title}”：${featuredLead.image.alt}`}
+          class="featured-item"
+          href={sitePath(`work/${collection.slug}/`)}
+          aria-label={`查看摄影系列“${collection.title}”：${image.alt}`}
         >
           <figure>
             <img
-              src={sitePath(featuredLead.image.src)}
-              alt={featuredLead.image.alt}
-              width={featuredLead.image.width}
-              height={featuredLead.image.height}
-              loading="eager"
-              fetchpriority="high"
+              src={sitePath(image.src)}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              fetchpriority={index === 0 ? 'high' : undefined}
               decoding="async"
             />
           </figure>
         </a>
-      )}
-
-      <div class="featured-secondary-grid">
-        {featuredSecondary.map(({ collection, image }) => (
-          <a
-            class="featured-item"
-            href={sitePath(`work/${collection.slug}/`)}
-            aria-label={`查看摄影系列“${collection.title}”：${image.alt}`}
-          >
-            <figure>
-              <img
-                src={sitePath(image.src)}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-          </a>
-        ))}
-      </div>
+      ))}
     </div>
   </section>
 

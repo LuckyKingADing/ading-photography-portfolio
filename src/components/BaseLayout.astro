@@ -41,5 +41,89 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
       <slot />
     </main>
     <SiteFooter />
+    <script>
+      const masonryGalleries = document.querySelectorAll<HTMLElement>('[data-masonry]');
+      const scheduledFrames = new WeakMap<HTMLElement, number>();
+      const measuredWidths = new WeakMap<HTMLElement, number>();
+
+      function layoutMasonry(gallery: HTMLElement) {
+        const galleryWidth = gallery.clientWidth;
+        if (galleryWidth === 0) return;
+
+        const galleryStyle = getComputedStyle(gallery);
+        const columns = Math.max(
+          1,
+          Number.parseInt(galleryStyle.getPropertyValue('--masonry-columns'), 10) || 1,
+        );
+        const gap = Number.parseFloat(galleryStyle.columnGap) || 0;
+        const itemWidth = (galleryWidth - gap * (columns - 1)) / columns;
+        const columnHeights = Array.from({ length: columns }, () => 0);
+        const items = Array.from(gallery.children).filter(
+          (item): item is HTMLElement => item instanceof HTMLElement,
+        );
+
+        items.forEach((item, index) => {
+          const image = item.querySelector('img');
+          if (!(image instanceof HTMLImageElement)) return;
+
+          const declaredWidth = Number(image.getAttribute('width')) || image.naturalWidth;
+          const declaredHeight = Number(image.getAttribute('height')) || image.naturalHeight;
+          const itemHeight = declaredWidth > 0 ? itemWidth * (declaredHeight / declaredWidth) : 0;
+          const column =
+            index < columns
+              ? index
+              : columnHeights.indexOf(Math.min(...columnHeights));
+          const openingOffset =
+            index < columns
+              ? Number.parseFloat(getComputedStyle(item).getPropertyValue('--masonry-offset')) || 0
+              : 0;
+          const y = Math.max(columnHeights[column], openingOffset);
+          const x = column * (itemWidth + gap);
+
+          item.style.width = `${itemWidth}px`;
+          item.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          columnHeights[column] = y + itemHeight + gap;
+        });
+
+        const galleryHeight = Math.max(...columnHeights, 0) - (items.length > 0 ? gap : 0);
+        gallery.style.height = `${Math.max(galleryHeight, 0)}px`;
+        gallery.classList.add('is-masonry-ready');
+        measuredWidths.set(gallery, galleryWidth);
+      }
+
+      function scheduleMasonry(gallery: HTMLElement) {
+        const scheduledFrame = scheduledFrames.get(gallery);
+        if (scheduledFrame !== undefined) cancelAnimationFrame(scheduledFrame);
+
+        scheduledFrames.set(
+          gallery,
+          requestAnimationFrame(() => {
+            layoutMasonry(gallery);
+            scheduledFrames.delete(gallery);
+          }),
+        );
+      }
+
+      const masonryResizeObserver = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+          const gallery = entry.target;
+          if (!(gallery instanceof HTMLElement)) return;
+
+          const previousWidth = measuredWidths.get(gallery);
+          if (previousWidth === undefined || Math.abs(previousWidth - entry.contentRect.width) > 0.5) {
+            scheduleMasonry(gallery);
+          }
+        });
+      });
+
+      masonryGalleries.forEach((gallery) => {
+        layoutMasonry(gallery);
+        masonryResizeObserver.observe(gallery);
+      });
+
+      window.addEventListener('pageshow', () => {
+        masonryGalleries.forEach(scheduleMasonry);
+      });
+    </script>
   </body>
 </html>
