@@ -44,11 +44,6 @@ const nextSeries = series.length > 1 ? series[(currentIndex + 1) % series.length
               fetchpriority={index === 0 ? 'high' : undefined}
               decoding="async"
             />
-            <figcaption>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <span>{item.location}</span>
-              <span>{item.date}</span>
-            </figcaption>
           </figure>
         </li>
       ))}

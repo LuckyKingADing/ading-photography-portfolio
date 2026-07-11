@@ -44,16 +44,12 @@ const [featuredLead, ...featuredSecondary] = featuredPhotos;
               fetchpriority="high"
               decoding="async"
             />
-            <figcaption>
-              <span>{featuredLead.collection.title}</span>
-              <span>01</span>
-            </figcaption>
           </figure>
         </a>
       )}
 
       <div class="featured-secondary-grid">
-        {featuredSecondary.map(({ collection, image }, index) => (
+        {featuredSecondary.map(({ collection, image }) => (
           <a
             class="featured-item"
             href={sitePath(`work/${collection.slug}/`)}
@@ -68,10 +64,6 @@ const [featuredLead, ...featuredSecondary] = featuredPhotos;
                 loading="lazy"
                 decoding="async"
               />
-              <figcaption>
-                <span>{collection.location}</span>
-                <span>{String(index + 2).padStart(2, '0')}</span>
-              </figcaption>
             </figure>
           </a>
         ))}
