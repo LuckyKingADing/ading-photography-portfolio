@@ -320,10 +320,16 @@ button {
 .series-copy h2 {
   margin: 0.35rem 0 1.25rem;
   font-family: var(--font-cjk);
-  font-size: clamp(4.5rem, 8vw, 8.25rem);
+  font-size: clamp(3.5rem, 5vw, 4.75rem);
   font-weight: 750;
   letter-spacing: 0.02em;
   line-height: 1;
+}
+
+.series-copy h2 span,
+.series-hero h1 span {
+  display: block;
+  white-space: nowrap;
 }
 
 .series-copy h2 a {
@@ -463,6 +469,10 @@ button {
   font-weight: 750;
   letter-spacing: 0.02em;
   line-height: 1;
+}
+
+.series-hero h1 {
+  font-size: clamp(3.25rem, 5.4vw, 5.5rem);
 }
 
 .series-location {
@@ -901,7 +911,7 @@ button {
   }
 
   .series-copy h2 {
-    font-size: clamp(3rem, 15vw, 4.25rem);
+    font-size: clamp(2.75rem, 12vw, 3.5rem);
   }
 
   .home-statement {
@@ -920,7 +930,7 @@ button {
   }
 
   .series-hero h1 {
-    font-size: clamp(3rem, 14vw, 4.25rem);
+    font-size: clamp(2.4rem, 11vw, 3.5rem);
   }
 
   .series-hero-image {

@@ -4,6 +4,83 @@ Command failures and integration errors.
 
 ---
 
+## [ERR-20260711-002] macos_date_iso_flag
+
+**Logged**: 2026-07-11T10:00:59+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+GNU-style `date --iso-8601=seconds` is unsupported by the macOS BSD `date` command.
+
+### Error
+
+```text
+date: illegal option -- -
+```
+
+### Context
+
+- The timestamp was needed while recording a resolved project learning.
+- This workspace is running on macOS.
+
+### Suggested Fix
+
+Use the portable macOS form `date -Iseconds`.
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: .learnings/ERRORS.md
+
+### Resolution
+
+- **Resolved**: 2026-07-11T10:00:59+02:00
+- **Notes**: Re-ran the command with `date -Iseconds` and obtained the expected timestamp.
+
+---
+
+## [ERR-20260711-001] photo_metadata_probe
+
+**Logged**: 2026-07-11T09:58:00+02:00
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+
+The first photo metadata probe produced no useful output because the source-directory environment variable was not passed to the script.
+
+### Error
+
+```text
+The probe completed without listing the expected image metadata.
+ImageMagick also warned that `%[profiles]` was an unknown image property for these WebP files.
+```
+
+### Context
+
+- The probe was intended to inspect orientation, camera details, capture dates, and GPS tags before publishing derived web copies.
+- The source photographs were not modified.
+
+### Suggested Fix
+
+Pass required paths explicitly. Use ImageMagick for dimensions and `webpmux -info` for deterministic WebP feature and metadata checks.
+
+### Metadata
+
+- Reproducible: yes
+- Related Files: public/images/series/shenzhen-melania-town/
+
+### Resolution
+
+- **Resolved**: 2026-07-11T09:59:00+02:00
+- **Notes**: Rechecked the generated files with ImageMagick and `webpmux`; all seven are 1600×2400 and report `No features present`, confirming the published copies contain no EXIF, XMP, ICC, or animation chunks.
+
+---
+
 ## [ERR-20260710-003] in_app_browser_multi_tab_timeout
 
 **Logged**: 2026-07-10T23:37:39+02:00

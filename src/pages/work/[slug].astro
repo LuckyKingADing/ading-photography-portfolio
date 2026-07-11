@@ -12,6 +12,7 @@ interface Props {
 }
 
 const { item } = Astro.props;
+const [titleLead, titleTail] = item.title.split(' · ');
 ---
 
 <BaseLayout
@@ -23,7 +24,10 @@ const { item } = Astro.props;
     <header class="series-hero">
       <div class="series-hero-copy">
         <p class="eyebrow">{item.category} / {item.year}</p>
-        <h1>{item.title}</h1>
+        <h1 aria-label={item.title}>
+          <span aria-hidden="true">{titleLead}</span>
+          {titleTail && <span aria-hidden="true">· {titleTail}</span>}
+        </h1>
         <p class="series-location">{item.location}</p>
         <p class="lead">{item.summary}</p>
         <p>{item.description}</p>

@@ -20,13 +20,13 @@ npm run build
 
 ## Add your photographs
 
-The included SVG artwork is clearly labelled demo content. Replace it one series at a time:
+The repository contains web-ready copies only. Add future work one series at a time:
 
 1. Export public, edited photographs as AVIF or WebP. Use an approximately 2400px maximum long edge; do not add RAW or original full-resolution files.
 2. Remove private EXIF metadata, especially GPS coordinates.
 3. Create `public/images/series/<series-slug>/` and copy the web exports into it.
 4. Edit `src/data/series.ts`. Update the title, date, location, summary, description, image path, alternative text, width, and height.
-5. Set `isPlaceholder` to `false` after every demo frame in that series has been replaced.
+5. Set `isPlaceholder` to `false` for a published series.
 6. Run `npm run check && npm run build`, then inspect the home and series pages on desktop and mobile.
 
 Image order in the `images` array is the gallery order. Keep the edit deliberate; the site never randomizes a series.

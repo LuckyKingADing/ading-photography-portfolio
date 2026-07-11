@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1200" role="img" aria-labelledby="t d">
-  <title id="t">After Rain demo frame 03</title><desc id="d">Abstract reflected landscape placeholder.</desc>
-  <rect width="1800" height="1200" fill="#98a6ad"/><rect y="600" width="1800" height="600" fill="#26343b"/><path d="M0 600L510 260l380 340 380-430 530 430" fill="#4b606a"/><path d="M0 600l510 300 380-300 380 390 530-390" fill="#607782" opacity=".48"/>
-  <path d="M80 80h260M80 80v220M1720 1120h-260M1720 1120V900" stroke="#f6f7f7" stroke-width="3"/>
-  <text x="80" y="1095" fill="#f6f7f7" font-family="monospace" font-size="28" letter-spacing="8">DEMO / 03</text>
-</svg>
-

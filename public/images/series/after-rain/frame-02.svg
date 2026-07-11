@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600" role="img" aria-labelledby="t d">
-  <title id="t">After Rain demo frame 02</title><desc id="d">Abstract dark portrait placeholder.</desc>
-  <rect width="1200" height="1600" fill="#172127"/><rect x="170" width="620" height="1600" fill="#536873"/><ellipse cx="650" cy="610" rx="280" ry="410" fill="#c3cdd1" opacity=".34"/><path d="M0 1260L1200 840v760H0z" fill="#0d1418" opacity=".76"/>
-  <path d="M90 110h210M90 110v210M1110 1490H900M1110 1490v-210" stroke="#f6f7f7" stroke-width="3"/>
-  <text x="90" y="1480" fill="#f6f7f7" font-family="monospace" font-size="28" letter-spacing="8">DEMO / 02</text>
-</svg>
-

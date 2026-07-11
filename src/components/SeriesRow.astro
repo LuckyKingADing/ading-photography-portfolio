@@ -9,13 +9,19 @@ interface Props {
 
 const { item, index } = Astro.props;
 const href = sitePath(`work/${item.slug}/`);
+const [titleLead, titleTail] = item.title.split(' · ');
 ---
 
 <article class:list={['series-row', { 'series-row-reverse': index % 2 === 1 }] }>
   <div class="series-copy">
     <div class="series-number">{String(index + 1).padStart(2, '0')}</div>
     <p class="eyebrow">{item.category} · {item.location} · {item.year}</p>
-    <h2><a href={href}>{item.title}</a></h2>
+    <h2>
+      <a href={href} aria-label={item.title}>
+        <span aria-hidden="true">{titleLead}</span>
+        {titleTail && <span aria-hidden="true">· {titleTail}</span>}
+      </a>
+    </h2>
     <p>{item.summary}</p>
     {item.isPlaceholder && <p class="placeholder-note">示例结构——请替换为你的摄影作品</p>}
     <a class="text-link" href={href}>查看系列 <span aria-hidden="true">↗</span></a>
