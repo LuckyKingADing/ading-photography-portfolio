@@ -194,8 +194,8 @@ h2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: clamp(1rem, 1.8vw, 1.25rem);
-  width: min(100%, 61.25rem);
+  gap: clamp(1.5rem, 2.3vw, 1.75rem);
+  width: min(100%, 70rem);
   margin-inline: auto;
   padding-block: clamp(3rem, 6vw, 5rem) clamp(4.5rem, 8vw, 7rem);
 }
@@ -203,7 +203,7 @@ h2 {
 .featured-secondary-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1rem, 1.8vw, 1.25rem);
+  gap: clamp(1.5rem, 2.3vw, 1.75rem);
 }
 
 .featured-item {
