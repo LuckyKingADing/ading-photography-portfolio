@@ -104,6 +104,16 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
         );
       }
 
+      function restoreHashTargetAfterLayout() {
+        const targetId = window.location.hash.slice(1);
+        const target = targetId ? document.getElementById(targetId) : null;
+        if (!target) return;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+        });
+      }
+
       const masonryResizeObserver = new ResizeObserver((entries) => {
         entries.forEach((entry) => {
           const gallery = entry.target;
@@ -123,6 +133,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
 
       window.addEventListener('pageshow', () => {
         masonryGalleries.forEach(scheduleMasonry);
+        restoreHashTargetAfterLayout();
       });
     </script>
   </body>

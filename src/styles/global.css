@@ -162,8 +162,7 @@ h2 {
 }
 
 .featured-section,
-.archive-section,
-.about-section {
+.archive-section {
   scroll-margin-top: calc(5.5rem + 2rem);
 }
 
@@ -298,9 +297,12 @@ h2 {
 
 .about-section {
   display: grid;
+  align-content: start;
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 1.2fr);
   gap: clamp(3rem, 8vw, 8rem);
+  min-height: calc(100svh - 5.5rem - 7.5rem);
   padding-block: 1.35rem var(--section-space);
+  scroll-margin-top: 5.5rem;
   border-top: 1px solid var(--line);
 }
 
@@ -480,8 +482,7 @@ h2 {
   }
 
   .featured-section,
-  .archive-section,
-  .about-section {
+  .archive-section {
     scroll-margin-top: calc(4.75rem + 1rem);
   }
 
@@ -553,7 +554,9 @@ h2 {
   }
 
   .about-section {
+    min-height: calc(100svh - 4.75rem - 7.5rem);
     padding-bottom: 7rem;
+    scroll-margin-top: 4.75rem;
   }
 
   .site-footer {
